@@ -1,3 +1,6 @@
 node_modules/
 .next/
 .env.local
+node_modules/@next/swc-linux-x64-gnu/
+node_modules/@next/swc-linux-x64-musl/
+.next/
