@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { stripe, STRIPE_PRICES } from '@/lib/stripe'
+import { stripe } from '@/lib/stripe'
 
-const PRICE_KEYS: Record<string, string> = {
-  starter: 'STRIPE_PRICE_STARTER',
-  pro: 'STRIPE_PRICE_PRO',
-  scale: 'STRIPE_PRICE_SCALE',
+const PRICE_KEYS: Record<string, { name: string; amount: number }> = {
+  starter: { name: 'LeadLoop Starter', amount: 2900 },   // $29
+  pro:     { name: 'LeadLoop Pro',     amount: 7900 },   // $79
+  scale:   { name: 'LeadLoop Scale',   amount: 19900 },  // $199
 }
 
 export async function POST(request: NextRequest) {
@@ -15,12 +15,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Invalid price key' }, { status: 400 })
     }
 
-    const priceId = STRIPE_PRICES[priceKey as keyof typeof STRIPE_PRICES]
-    
-    if (!priceId) {
-      return NextResponse.json({ error: 'Price not configured' }, { status: 500 })
-    }
-
+    const { name, amount } = PRICE_KEYS[priceKey]
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://leadloop-five.vercel.app'
 
     const session = await stripe.checkout.sessions.create({
@@ -28,7 +23,19 @@ export async function POST(request: NextRequest) {
       customer_email: userEmail,
       line_items: [
         {
-          price: priceId,
+          price_data: {
+            currency: 'usd',
+            product_data: {
+              name,
+              description: priceKey === 'starter' ? '500 successful enrichments/month'
+                : priceKey === 'pro' ? '2,000 successful enrichments/month'
+                : '8,000 successful enrichments/month',
+            },
+            unit_amount: amount,
+            recurring: {
+              interval: 'month',
+            },
+          },
           quantity: 1,
         },
       ],
