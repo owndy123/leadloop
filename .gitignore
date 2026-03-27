@@ -4,3 +4,4 @@ node_modules/
 node_modules/@next/swc-linux-x64-gnu/
 node_modules/@next/swc-linux-x64-musl/
 .next/
+.env.production
