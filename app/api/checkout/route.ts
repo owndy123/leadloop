@@ -1,12 +1,24 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { stripe, STRIPE_PRICES } from '@/lib/stripe'
 
+const PRICE_KEYS: Record<string, string> = {
+  starter: 'STRIPE_PRICE_STARTER',
+  pro: 'STRIPE_PRICE_PRO',
+  scale: 'STRIPE_PRICE_SCALE',
+}
+
 export async function POST(request: NextRequest) {
   try {
-    const { priceId, userId, userEmail } = await request.json()
+    const { priceKey, userId, userEmail } = await request.json()
 
-    if (!priceId || !STRIPE_PRICES[priceId as keyof typeof STRIPE_PRICES]) {
-      return NextResponse.json({ error: 'Invalid price ID' }, { status: 400 })
+    if (!priceKey || !PRICE_KEYS[priceKey]) {
+      return NextResponse.json({ error: 'Invalid price key' }, { status: 400 })
+    }
+
+    const priceId = STRIPE_PRICES[priceKey as keyof typeof STRIPE_PRICES]
+    
+    if (!priceId) {
+      return NextResponse.json({ error: 'Price not configured' }, { status: 500 })
     }
 
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://leadloop-five.vercel.app'
@@ -16,7 +28,7 @@ export async function POST(request: NextRequest) {
       customer_email: userEmail,
       line_items: [
         {
-          price: STRIPE_PRICES[priceId as keyof typeof STRIPE_PRICES],
+          price: priceId,
           quantity: 1,
         },
       ],
@@ -24,7 +36,7 @@ export async function POST(request: NextRequest) {
       cancel_url: `${baseUrl}/checkout/cancel`,
       metadata: {
         userId: userId || '',
-        priceId,
+        priceKey,
       },
     })
 
