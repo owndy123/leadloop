@@ -2,159 +2,200 @@ import Link from 'next/link'
 
 export default function LandingPage() {
   return (
-    <div className="min-h-screen bg-slate-50">
-      <nav className="bg-white border-b border-slate-200">
-        <div className="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
-          <div className="text-xl font-bold text-slate-900">LeadLoop</div>
-          <div className="flex items-center gap-4">
-            <Link href="/login" className="text-sm text-slate-600 hover:text-slate-900">Sign in</Link>
-            <Link href="/signup" className="text-sm bg-slate-900 text-white px-4 py-2 rounded-lg hover:bg-slate-800">
-              Start free
-            </Link>
-          </div>
+    <div className="min-h-screen bg-[#0a0a0a] text-white">
+
+      {/* ── Nav ── */}
+      <nav className="max-w-5xl mx-auto px-6 py-5 flex items-center justify-between">
+        <div className="text-lg font-semibold tracking-tight text-white">LeadLoop</div>
+        <div className="flex items-center gap-6">
+          <Link href="/login" className="text-sm text-[#888] hover:text-white transition-colors">
+            Sign in
+          </Link>
+          <Link href="/signup" className="text-sm bg-[#00d4aa] text-[#0a0a0a] px-4 py-2 font-medium hover:bg-[#00e8bb] transition-colors">
+            Start free
+          </Link>
         </div>
       </nav>
 
-      <section className="max-w-5xl mx-auto px-6 pt-24 pb-20 text-center">
-        <div className="inline-flex items-center gap-2 bg-blue-50 text-blue-700 text-sm px-3 py-1 rounded-full mb-6">
-          <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
-          Success-only billing — pay only when we find verified data
-        </div>
-        <h1 className="text-5xl font-bold text-slate-900 mb-6 leading-tight">
+      {/* ── Hero ── */}
+      <section className="max-w-5xl mx-auto px-6 pt-28 pb-32 text-center">
+        <h1 className="text-5xl md:text-6xl font-bold tracking-tight text-white leading-tight mb-6">
           Pay only for<br />
-          <span className="text-blue-600">verified leads</span>
+          <span className="text-[#00d4aa]">verified leads.</span>
         </h1>
-        <p className="text-xl text-slate-600 mb-10 max-w-2xl mx-auto">
-          AI-powered lead enrichment with a freshness timestamp on every result.
-          Only pay for successful lookups. Failed enrichments are always free.
+        <p className="text-lg text-[#888] max-w-xl mx-auto mb-10">
+          We timestamp every result. We charge only on success.
         </p>
-        <div className="flex items-center justify-center gap-4">
-          <Link href="/signup" className="bg-blue-600 text-white px-8 py-4 rounded-xl text-lg font-semibold hover:bg-blue-700 transition">
-            Start free — 10 enrichments
-          </Link>
-          <a href="#pricing" className="text-slate-600 px-6 py-4 text-lg">
-            View pricing
-          </a>
-        </div>
+        <Link href="/signup" className="inline-block text-base bg-[#00d4aa] text-[#0a0a0a] px-8 py-4 font-semibold hover:bg-[#00e8bb] transition-colors">
+          Start free — 10 enrichments
+        </Link>
       </section>
 
-      <section className="bg-white border-y border-slate-200 py-20">
+      {/* ── The Problem ── */}
+      <section className="border-t border-[#1a1a1a] py-24">
         <div className="max-w-5xl mx-auto px-6">
-          <h2 className="text-3xl font-bold text-slate-900 text-center mb-16">How it works</h2>
-          <div className="grid md:grid-cols-3 gap-12">
-            <div className="text-center">
-              <div className="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4">1</div>
-              <h3 className="text-lg font-semibold text-slate-900 mb-2">Paste your leads</h3>
-              <p className="text-slate-600">Upload a CSV or paste a list of emails. One field required: email address.</p>
+          <p className="text-xs uppercase tracking-widest text-[#555] mb-8">The problem</p>
+          <div className="grid md:grid-cols-3 gap-0">
+            <div className="border-t border-[#1a1a1a] pt-6">
+              <p className="text-base text-[#ccc] leading-relaxed">
+                30–40% of B2B emails go stale every year. Most enrichment tools sell you that stale data and still charge you for it.
+              </p>
             </div>
-            <div className="text-center">
-              <div className="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4">2</div>
-              <h3 className="text-lg font-semibold text-slate-900 mb-2">We verify in real-time</h3>
-              <p className="text-slate-600">We check MX records, SMTP, and public signals to confirm each lead is accurate.</p>
+            <div className="border-t border-[#1a1a1a] pt-6">
+              <p className="text-base text-[#ccc] leading-relaxed">
+                You pay per lookup — not per result. So you&apos;re effectively paying for the privilege of finding out an email doesn&apos;t exist.
+              </p>
             </div>
-            <div className="text-center">
-              <div className="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4">3</div>
-              <h3 className="text-lg font-semibold text-slate-900 mb-2">Pay only for success</h3>
-              <p className="text-slate-600">Each verified result counts against your plan. Failed lookups are free and do not count.</p>
+            <div className="border-t border-[#1a1a1a] pt-6">
+              <p className="text-base text-[#ccc] leading-relaxed">
+                There&apos;s no way to know when data was last verified. You&apos;re flying blind on outreach that depends on accuracy.
+              </p>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="py-20">
+      {/* ── How it works ── */}
+      <section className="border-t border-[#1a1a1a] py-24">
         <div className="max-w-5xl mx-auto px-6">
-          <h2 className="text-3xl font-bold text-slate-900 text-center mb-16">Built different</h2>
-          <div className="grid md:grid-cols-2 gap-6">
-            <div className="bg-white border border-slate-200 rounded-xl p-6">
-              <h3 className="text-lg font-semibold text-slate-900 mb-2">Freshness timestamp on every result</h3>
-              <p className="text-slate-600">Know exactly when each data point was last verified. No more guessing if that email is still valid.</p>
+          <p className="text-xs uppercase tracking-widest text-[#555] mb-12">How it works</p>
+          <div className="grid md:grid-cols-3 gap-px bg-[#1a1a1a]">
+            <div className="bg-[#0a0a0a] p-8">
+              <div className="text-xs text-[#555] mb-4 font-mono">01</div>
+              <h3 className="text-base font-semibold text-white mb-3">Submit your leads</h3>
+              <p className="text-sm text-[#888] leading-relaxed">
+                Upload a CSV or send an email list via API. One required field: email address.
+              </p>
             </div>
-            <div className="bg-white border border-slate-200 rounded-xl p-6">
-              <h3 className="text-lg font-semibold text-slate-900 mb-2">Success-only billing</h3>
-              <p className="text-slate-600">You are only charged when enrichment returns verified data. Failed lookups cost nothing.</p>
+            <div className="bg-[#0a0a0a] p-8">
+              <div className="text-xs text-[#555] mb-4 font-mono">02</div>
+              <h3 className="text-base font-semibold text-white mb-3">We verify in real-time</h3>
+              <p className="text-sm text-[#888] leading-relaxed">
+                MX records, SMTP checks, and public signals. Every result gets a freshness timestamp.
+              </p>
             </div>
-            <div className="bg-white border border-slate-200 rounded-xl p-6">
-              <h3 className="text-lg font-semibold text-slate-900 mb-2">No annual contracts</h3>
-              <p className="text-slate-600">Month-to-month. Cancel anytime. We earn your business every single month.</p>
-            </div>
-            <div className="bg-white border border-slate-200 rounded-xl p-6">
-              <h3 className="text-lg font-semibold text-slate-900 mb-2">SMB-friendly pricing</h3>
-              <p className="text-slate-600">Starting at $29 per month for 500 successful enrichments. No minimum commitments.</p>
+            <div className="bg-[#0a0a0a] p-8">
+              <div className="text-xs text-[#555] mb-4 font-mono">03</div>
+              <h3 className="text-base font-semibold text-white mb-3">You pay only on success</h3>
+              <p className="text-sm text-[#888] leading-relaxed">
+                Failed lookups are free. Only verified results count against your plan.
+              </p>
             </div>
           </div>
         </div>
       </section>
 
-      <section id="pricing" className="py-20 bg-slate-100">
+      {/* ── Why we're different ── */}
+      <section className="border-t border-[#1a1a1a] py-24">
         <div className="max-w-5xl mx-auto px-6">
-          <h2 className="text-3xl font-bold text-slate-900 text-center mb-4">Simple, fair pricing</h2>
-          <p className="text-slate-600 text-center mb-16">Pay per successful enrichment. Failed lookups are always free.</p>
-          <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-            <div className="bg-white rounded-2xl p-8 border border-slate-200">
-              <div className="text-sm font-semibold uppercase tracking-wide text-slate-500 mb-2">Starter</div>
-              <div className="flex items-baseline gap-1 mb-1">
-                <span className="text-4xl font-bold text-slate-900">$29</span>
-                <span className="text-slate-500">/mo</span>
-              </div>
-              <div className="text-2xl font-bold text-blue-600 mb-2">500 enrichments</div>
-              <p className="text-sm text-slate-600 mb-6">For freelancers and solo outbound.</p>
-              <ul className="text-sm text-slate-600 space-y-2 mb-8">
-                <li>Success-only billing</li>
-                <li>Freshness timestamp</li>
-                <li>API access</li>
-                <li>CSV import/export</li>
-              </ul>
-              <Link href="/signup" className="block text-center py-3 rounded-xl font-semibold bg-slate-900 text-white hover:bg-slate-800">
-                Start free
-              </Link>
+          <p className="text-xs uppercase tracking-widest text-[#555] mb-12">Why we&apos;re different</p>
+          <div className="grid md:grid-cols-2 gap-px bg-[#1a1a1a]">
+            <div className="bg-[#0a0a0a] p-8">
+              <h3 className="text-base font-semibold text-white mb-3">
+                Freshness timestamp on every result
+              </h3>
+              <p className="text-sm text-[#888] leading-relaxed">
+                Every enriched record includes the exact timestamp of when it was last verified. No guessing. No stale guesses.
+              </p>
             </div>
-            <div className="bg-slate-900 rounded-2xl p-8 text-white">
-              <div className="text-sm font-semibold uppercase tracking-wide text-slate-400 mb-2">Pro</div>
-              <div className="flex items-baseline gap-1 mb-1">
-                <span className="text-4xl font-bold">$79</span>
-                <span className="text-slate-400">/mo</span>
-              </div>
-              <div className="text-2xl font-bold text-blue-400 mb-2">2,000 enrichments</div>
-              <p className="text-sm text-slate-400 mb-6">For growing sales teams.</p>
-              <ul className="text-sm text-slate-300 space-y-2 mb-8">
-                <li>Success-only billing</li>
-                <li>Freshness timestamp</li>
-                <li>API access</li>
-                <li>CSV import/export</li>
-              </ul>
-              <Link href="/signup" className="block text-center py-3 rounded-xl font-semibold bg-blue-500 text-white hover:bg-blue-400">
-                Start free
-              </Link>
-            </div>
-            <div className="bg-white rounded-2xl p-8 border border-slate-200">
-              <div className="text-sm font-semibold uppercase tracking-wide text-slate-500 mb-2">Scale</div>
-              <div className="flex items-baseline gap-1 mb-1">
-                <span className="text-4xl font-bold text-slate-900">$199</span>
-                <span className="text-slate-500">/mo</span>
-              </div>
-              <div className="text-2xl font-bold text-blue-600 mb-2">8,000 enrichments</div>
-              <p className="text-sm text-slate-600 mb-6">For high-volume operations.</p>
-              <ul className="text-sm text-slate-600 space-y-2 mb-8">
-                <li>Success-only billing</li>
-                <li>Freshness timestamp</li>
-                <li>API access</li>
-                <li>CSV import/export</li>
-              </ul>
-              <Link href="/signup" className="block text-center py-3 rounded-xl font-semibold bg-slate-900 text-white hover:bg-slate-800">
-                Start free
-              </Link>
+            <div className="bg-[#0a0a0a] p-8">
+              <h3 className="text-base font-semibold text-white mb-3">
+                Success-only billing
+              </h3>
+              <p className="text-sm text-[#888] leading-relaxed">
+                You are charged only when enrichment returns verified data. Failed lookups are always free and never counted.
+              </p>
             </div>
           </div>
-          <p className="text-center text-slate-500 text-sm mt-8">All plans include a free tier — 10 enrichments per month, no credit card required.</p>
         </div>
       </section>
 
-      <footer className="bg-white border-t border-slate-200 py-12">
-        <div className="max-w-5xl mx-auto px-6 text-center text-slate-500 text-sm">
-          <div className="text-xl font-bold text-slate-900 mb-4">LeadLoop</div>
-          <p>Pay only for verified leads. Never pay for stale data.</p>
+      {/* ── Pricing ── */}
+      <section id="pricing" className="border-t border-[#1a1a1a] py-24">
+        <div className="max-w-5xl mx-auto px-6">
+          <p className="text-xs uppercase tracking-widest text-[#555] mb-4">Pricing</p>
+          <p className="text-sm text-[#555] mb-12">Pay per successful enrichment. Free lookups don&apos;t count.</p>
+
+          <div className="grid md:grid-cols-3 gap-px bg-[#1a1a1a]">
+            {/* Starter */}
+            <div className="bg-[#0a0a0a] p-8">
+              <div className="text-xs uppercase tracking-widest text-[#555] mb-4">Starter</div>
+              <div className="flex items-baseline gap-1 mb-2">
+                <span className="text-4xl font-bold text-white">$29</span>
+                <span className="text-[#555]">/mo</span>
+              </div>
+              <div className="text-sm text-[#00d4aa] mb-6">500 enrichments</div>
+              <ul className="text-sm text-[#888] space-y-2 mb-8">
+                <li>Success-only billing</li>
+                <li>Freshness timestamp</li>
+                <li>REST API access</li>
+                <li>CSV import / export</li>
+              </ul>
+              <Link href="/pricing" className="block text-center text-sm text-[#0a0a0a] bg-[#00d4aa] px-6 py-3 font-medium hover:bg-[#00e8bb] transition-colors">
+                Get started
+              </Link>
+            </div>
+
+            {/* Pro */}
+            <div className="bg-[#0a0a0a] p-8">
+              <div className="text-xs uppercase tracking-widest text-[#00d4aa] mb-4">Pro</div>
+              <div className="flex items-baseline gap-1 mb-2">
+                <span className="text-4xl font-bold text-white">$79</span>
+                <span className="text-[#555]">/mo</span>
+              </div>
+              <div className="text-sm text-[#00d4aa] mb-6">2,000 enrichments</div>
+              <ul className="text-sm text-[#888] space-y-2 mb-8">
+                <li>Success-only billing</li>
+                <li>Freshness timestamp</li>
+                <li>REST API access</li>
+                <li>CSV import / export</li>
+                <li>Priority queue</li>
+              </ul>
+              <Link href="/pricing" className="block text-center text-sm text-[#0a0a0a] bg-[#00d4aa] px-6 py-3 font-medium hover:bg-[#00e8bb] transition-colors">
+                Get started
+              </Link>
+            </div>
+
+            {/* Scale */}
+            <div className="bg-[#0a0a0a] p-8">
+              <div className="text-xs uppercase tracking-widest text-[#555] mb-4">Scale</div>
+              <div className="flex items-baseline gap-1 mb-2">
+                <span className="text-4xl font-bold text-white">$199</span>
+                <span className="text-[#555]">/mo</span>
+              </div>
+              <div className="text-sm text-[#00d4aa] mb-6">8,000 enrichments</div>
+              <ul className="text-sm text-[#888] space-y-2 mb-8">
+                <li>Success-only billing</li>
+                <li>Freshness timestamp</li>
+                <li>REST API access</li>
+                <li>CSV import / export</li>
+                <li>Priority queue</li>
+                <li>Dedicated support</li>
+              </ul>
+              <Link href="/pricing" className="block text-center text-sm text-[#0a0a0a] bg-[#00d4aa] px-6 py-3 font-medium hover:bg-[#00e8bb] transition-colors">
+                Get started
+              </Link>
+            </div>
+          </div>
+
+          <p className="text-xs text-[#555] mt-8 text-center">
+            10 free enrichments per month — no credit card required.
+          </p>
+        </div>
+      </section>
+
+      {/* ── Footer ── */}
+      <footer className="border-t border-[#1a1a1a] py-8">
+        <div className="max-w-5xl mx-auto px-6 flex items-center justify-between">
+          <div className="text-sm font-semibold text-white">LeadLoop</div>
+          <div className="flex items-center gap-6">
+            <a href="/api/docs" className="text-xs text-[#555] hover:text-white transition-colors">API docs</a>
+            <a href="mailto:hello@leadloop.io" className="text-xs text-[#555] hover:text-white transition-colors">Contact</a>
+          </div>
+          <div className="text-xs text-[#555]">© 2025 LeadLoop</div>
         </div>
       </footer>
+
     </div>
   )
 }

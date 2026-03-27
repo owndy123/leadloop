@@ -23,6 +23,18 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: error.message }, { status: 400 })
     }
 
+    // Create user record in public.users table
+    if (data.user) {
+      await supabase
+        .from('users')
+        .upsert({
+          id: data.user.id,
+          email: data.user.email,
+          plan: 'free',
+          total_enrichments: 0,
+        })
+    }
+
     const response = NextResponse.json({ 
       user: data.user, 
       session: data.session 
