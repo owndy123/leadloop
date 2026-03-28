@@ -1,6 +1,23 @@
 'use client'
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import Link from 'next/link'
+import { motion, useInView } from 'framer-motion'
+
+function FadeIn({ children, className = '', delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
+  const ref = useRef(null)
+  const inView = useInView(ref, { once: true, margin: '-60px' })
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 40 }}
+      animate={inView ? { opacity: 1, y: 0 } : { opacity: 0 }}
+      transition={{ duration: 0.7, delay, ease: 'easeOut' }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  )
+}
 
 const plans = [
   { name: 'Starter', price: '$29', count: '500', desc: 'For freelancers and solo outbound.', priceKey: 'starter', highlight: false },
@@ -43,7 +60,12 @@ export default function PricingPage() {
 
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-white">
-      <nav className="border-b border-white/10">
+      <motion.nav
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: 'easeOut' }}
+        className="border-b border-white/10 sticky top-0 z-50 bg-[#0a0a0a]/80 backdrop-blur-md"
+      >
         <div className="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
           <Link href="/" className="text-white font-bold text-xl">LeadLoop</Link>
           <div className="flex items-center gap-4">
@@ -51,34 +73,84 @@ export default function PricingPage() {
             <Link href="/signup" className="bg-white text-black px-4 py-2 text-sm font-semibold hover:bg-[#eee]">Start free</Link>
           </div>
         </div>
-      </nav>
-      <div className="max-w-5xl mx-auto px-6 py-20">
-        <div className="text-center mb-16">
-          <h1 className="text-4xl font-bold text-white mb-4">Simple, honest pricing</h1>
-          <p className="text-[#888]">You pay only for successful enrichments. Failed lookups are always free.</p>
+      </motion.nav>
+
+      <div className="max-w-5xl mx-auto px-6 py-32">
+        <div className="text-center mb-20">
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1, ease: 'easeOut' }}
+            className="text-xs uppercase tracking-widest text-[#555] mb-4"
+          >
+            Pricing
+          </motion.p>
+          <motion.h1
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.2, ease: 'easeOut' }}
+            className="text-4xl md:text-5xl font-bold text-white mb-4"
+          >
+            Simple, honest pricing
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3, ease: 'easeOut' }}
+            className="text-[#888]"
+          >
+            You pay only for successful enrichments. Failed lookups are always free.
+          </motion.p>
         </div>
-        {error && <div className="max-w-md mx-auto mb-8 bg-red-500/10 border border-red-500/20 text-red-400 px-4 py-3 rounded-xl text-sm">{error}</div>}
+
+        {error && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="max-w-md mx-auto mb-8 bg-red-500/10 border border-red-500/20 text-red-400 px-4 py-3 rounded-xl text-sm text-center"
+          >
+            {error}
+          </motion.div>
+        )}
+
         <div className="grid md:grid-cols-3 gap-8">
-          {plans.map(p => (
-            <div key={p.name} className={`rounded-2xl p-8 ${p.highlight ? 'border border-[#00d4aa]' : 'border border-white/10'}`}>
-              <div className="text-sm font-semibold text-[#555] uppercase tracking-wide mb-2">{p.name}</div>
+          {plans.map((p, i) => (
+            <motion.div
+              key={p.name}
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 + i * 0.12, ease: 'easeOut' }}
+              className={`rounded-2xl p-8 ${p.highlight ? 'border border-[#00d4aa]' : 'border border-white/10'}`}
+            >
+              <div className="text-sm font-semibold text-[#555] uppercase tracking-wide mb-3">{p.name}</div>
               <div className="flex items-baseline gap-1 mb-1">
                 <span className="text-5xl font-bold text-white">{p.price}</span>
                 <span className="text-[#555]">/month</span>
               </div>
               <div className="text-xl font-semibold text-[#00d4aa] mb-2">{p.count} enrichments</div>
-              <p className="text-sm text-[#888] mb-6">{p.desc}</p>
-              <button onClick={() => handlePurchase(p.priceKey)} disabled={loading !== null}
-                className={`w-full py-3 rounded-xl font-semibold transition ${p.highlight ? 'bg-[#00d4aa] text-[#0a0a0a] hover:bg-[#00e8bb]' : 'border border-white/20 text-white hover:border-white/40'}`}>
+              <p className="text-sm text-[#888] mb-8">{p.desc}</p>
+              <button
+                onClick={() => handlePurchase(p.priceKey)}
+                disabled={loading !== null}
+                className={`w-full py-3 rounded-xl font-semibold transition ${p.highlight
+                  ? 'bg-[#00d4aa] text-[#0a0a0a] hover:bg-[#00e8bb]'
+                  : 'border border-white/20 text-white hover:border-white/40'}`}
+              >
                 {loading === p.priceKey ? 'Redirecting...' : 'Get started'}
               </button>
-            </div>
+            </motion.div>
           ))}
         </div>
-        <div className="text-center mt-12">
-          <p className="text-[#555] text-sm">All plans include free tier — 10 enrichments/month, no credit card required.</p>
-          <p className="text-[#444] text-xs mt-2">Payments processed securely by Stripe. Cancel anytime.</p>
-        </div>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.7, ease: 'easeOut' }}
+          className="text-center mt-16"
+        >
+          <p className="text-[#555] text-sm">All plans include a free tier — 10 enrichments/month, no credit card required.</p>
+          <p className="text-[#444] text-xs mt-2"> Payments processed securely by Stripe. Cancel anytime.</p>
+        </motion.div>
       </div>
     </div>
   )
